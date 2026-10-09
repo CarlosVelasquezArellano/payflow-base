@@ -4,29 +4,35 @@ package com.nttdata.payflow.model;
  * Clase base de todos los tipos de empleado.
  */
 // TODO 1: convierte la clase en abstracta (no debe poder instanciarse).
-public class Empleado {
+public abstract class Empleado {
 
     // TODO 2: encapsula los atributos: deben ser private y final.
-    String id;
-    String nombre;
-    Area area;
+    private final String id;
+    private final String nombre;
+    private final Area area;
 
     // TODO 3: valida (RN-01) y lanza IllegalArgumentException si:
     //         id o nombre son null o están vacíos, o area es null.
     protected Empleado(String id, String nombre, Area area) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("El id no puede ser nulo ni estar vacío");
+        }
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo ni estar vacío");
+        }
+        if (area == null) {
+            throw new IllegalArgumentException("El área no puede ser nula");
+        }
+
         this.id = id;
         this.nombre = nombre;
         this.area = area;
     }
 
     // TODO 4: convierte estos dos métodos en abstractos (sin cuerpo).
-    public double calcularPagoMensual() {
-        return 0;
-    }
+    public abstract double calcularPagoMensual();
 
-    public String getTipo() {
-        return "Empleado";
-    }
+    public abstract String getTipo();
 
     public String getId() {
         return id;
@@ -40,3 +46,4 @@ public class Empleado {
         return area;
     }
 }
+
